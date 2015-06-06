@@ -1,0 +1,82 @@
+﻿<div ng-controller="bookDetailController" ng-init="init()">
+    <div class="row">
+
+        <div class="col-lg-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Truyện - {{book.name}}</div>
+                <div class="panel-body">
+                    <tabset>
+
+                        <tab heading="Tổng hợp chương truyện">
+                            <p>Nội dung Tổng hợp chương truyện</p>
+                            <p>Tổng chương: {{book.totalChapter}}</p>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <p>Chương</p>
+                                        </th>
+                                        <th>
+                                            <p>Tên chương</p>
+                                        </th>
+                                        <th>
+                                            <p>Ngày đăng</p>
+                                        </th>
+                                        <th>
+                                            <p>Đăng bởi</p>
+                                        </th>
+                                    </tr>
+
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="chapter in book.chapters">
+                                        <td>Chương - {{chapter.ordinal}}</td>
+                                        <td><a href="#/book/{{book.id}}/chapter/{{chapter.ordinal}}"> {{chapter.name}}</a></td>
+                                        <td>{{chapter.createdOn}}</td>
+                                        <td>{{chapter.userName}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="4" align="center">
+                                            <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+
+                                            </pagination>
+
+                                        </td>
+
+                                    </tr>
+
+                                </tfoot>
+                            </table>
+                        </tab>
+                        <tab heading="Giới thiệu">
+                            <p>Nội dung giới thiệu</p>
+                            <div ng-bind-html="book.description">
+                            </div>
+                        </tab>
+                    </tabset>
+                    {{book.status}}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img src="{{book.imageUrl}}" />
+                </div>
+                <div class="panel-footer">
+                    <p>Thể loại: <a href="#books/category/{{category}}" ng-repeat="category in book.categoryName">{{category}}</a></p>
+                    <p>Ngày tạo: {{book.createdOn | date}}</p>
+                    <p>Tác giả: <a href="#books/author/{{book.authorName}}">{{book.authorName}}</a></p>
+                    <p>Đánh giá: {{book.rating}}</p>
+                    <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    <span class="label" ng-class="{'label-warning': rate<3, 'label-info': rate>=3 && rate<7, 'label-success': rate>=7}" ng-show="overStar && !isReadonly">{{rate}}</span>
+                    <p>Đăng bởi: {{book.userName}}</p>
+                    <p>Lượt xem: {{book.totalView}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

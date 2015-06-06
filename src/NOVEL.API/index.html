@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" data-ng-app="NovelApp">
+<head>
+    <title>Đọc Truyện</title>
+    <!--<link href="content/css/bootstrap.min.css" rel="stylesheet" />-->
+    <link href="content/css/bootstrap-yeti.min.css" rel="stylesheet" />
+    <link href="content/font-awesome.min.css" rel="stylesheet" />
+    <link href="content/css/loading-bar.min.css" rel="stylesheet" />
+    <link href="content/css/toaster.min.css" rel="stylesheet" />
+    <link href="content/css/textAngular.css" rel="stylesheet" />
+    <link href="content/css/ui-grid.min.css" rel="stylesheet" />
+</head>
+<body>
+    <script type="text/ng-template" id="loginModal.html">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-ng-click="cancel()">×</button>
+            <h3 class="modal-title">Đăng Nhập</h3>
+        </div>
+        <div class="modal-body">
+
+            <form class="form-login" role="form">
+                <input type="text" class="form-control" placeholder="Tên đăng nhập" data-ng-model="loginData.userName" required autofocus>
+                <p></p>
+                <input type="password" class="form-control" placeholder="Mật khẩu" data-ng-model="loginData.password" required>
+                <p></p>
+                <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="ok()">Đăng Nhập</button>
+            </form>
+        </div>
+    </script>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" data-ng-controller="indexController" ng-init="init()">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="btn btn-success navbar-toggle" data-ng-click="navbarExpanded = !navbarExpanded">
+                    <span class="glyphicon glyphicon-chevron-down"></span>
+                </button>
+                <a class="navbar-brand" href="#/">Trang chủ</a>
+            </div>
+            <div class="collapse navbar-collapse" data-collapse="!navbarExpanded">
+                <div ng-controller="homeController">
+                    <div class="navbar-form navbar-left form-group">
+                        <input type="text" ng-model="searchObj.search" class="form-control" placeholder="Tìm kiếm">
+                        <a class="btn btn-default btn-sm" href="#/books/search/{{searchObj.search}}">Tìm</a>
+                    </div>
+                </div>
+                
+                <ul class="nav navbar-nav navbar-right">
+                    <li data-ng-hide="!authentication.isAuth"><a href="#">Chào {{authentication.userName}} !</a></li>
+                    <li data-ng-hide="!authentication.isAuth" data-ng-class="{'active':isActive('/books')}"><a href="#/books">Truyện</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="#/authors">Tác giả</a></li>
+                    <li data-ng-hide="!authentication.isAuth"><a href="" data-ng-click="logOut()">Thoát</a></li>
+                    <!--<li data-ng-hide="authentication.isAuth"> <a href="#/login">Đăng Nhập</a></li>-->
+                   
+                    <li data-ng-hide="authentication.isAuth"><a href="" data-ng-controller="loginController" data-ng-init="init()" data-ng-click="open()">Đăng Nhập</a></li>
+                    <li data-ng-hide="authentication.isAuth"> <a href="#/signup">Đăng Ký</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="jumbotron">
+        <div class="container">
+            <div class="page-header text-center">
+                <h4>Danh sách</h4>
+            </div>
+        </div>
+    </div>-->
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <br />
+        <div ng-show="showFullScreen">
+            <div data-ng-view="">
+            </div>
+        </div>
+        <div class="row" ng-show="showMultiScreen">
+            <div class="col-lg-3">
+                <div class="panel panel-info" ng-controller="categoriesController" ng-init="init()" ng-cloak>
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><a href="#categories" ng-click="init()">Thể loại</a> </h3>
+                        <!--<div ng-include="'app/views/partial/categoriesPartial.html'"></div>-->
+                    </div>
+                    <div class="panel-body">
+                        <div>
+                            <ul ng-repeat="category in categories">
+                                <li><a href="#books/category/{{category.name}}">{{category.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!--<div ng-controller="booksController" ng-load="init()">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Hay nhất</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul ng-repeat="book in books">
+                                <li><a href="#books/books/{{book.name}}">{{book.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Truyện mới</h3>
+                        </div>
+                        <div class="panel-body">
+                            <ul ng-repeat="book in books">
+                                <li><a href="#books/books/{{book.name}}">{{book.name}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>-->
+
+            </div>
+            <div class="col-lg-9">
+                <div class="fade-in" data-ng-view="">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <hr />
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="text-muted">Viết bởi Minh Tính <a target="_blank" href="minhtinh885@gmail.com">@minhtinh885</a></p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-muted">AngularJS <a target="_blank" href="">Chương trình đang được xây dựng</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Thư viện -->
+    <script src="scripts/jquery-2.1.4.min.js"></script>
+    <script src="scripts/angular.min.js"></script>
+    <script src="scripts/angular-route.min.js"></script>
+    <script src="scripts/angular-local-storage.min.js"></script>
+    <script src="scripts/angular-resource.min.js"></script>
+    <script src="scripts/angular-animate.min.js"></script>
+    <script src="scripts/ui-bootstrap-0.13.0.min.js"></script>
+    <script src="scripts/ui-bootstrap-tpls-0.13.0.min.js"></script>
+    <script src="scripts/toaster.min.js"></script>
+    <script src="scripts/loading-bar.min.js"></script>
+    <script src="scripts/textAngular-rangy.min.js"></script>
+    <script src="scripts/textAngular-sanitize.min.js"></script>
+    <script src="scripts/textAngular.min.js"></script>
+    <!--<script src="scripts/ui-grid.min.js"></script>-->
+    <!--<script src="scripts/angular-resource.min.js"></script>-->
+    <!-- Chương trình -->
+    <!--<script src="appbuild/ngscripts.min.js"></script>-->
+    <script src="app/app.js"></script>
+
+
+    <script src="app/services/authInterceptorService.js"></script>
+    <script src="app/services/authService.js"></script>
+    <script src="app/services/ajaxService.js"></script>
+    <script src="app/services/booksService.js"></script>
+    <script src="app/services/modalService.js"></script>
+    <script src="app/services/categoryService.js"></script>
+    <script src="app/services/authorService.js"></script>
+    <script src="app/services/chapterService.js"></script>
+    <script src="app/filters/bookFilter.js"></script>
+
+
+    <script src="app/controllers/indexController.js"></script>
+    <script src="app/controllers/homeController.js"></script>
+    <script src="app/controllers/loginController.js"></script>
+    <script src="app/controllers/signupController.js"></script>
+
+    <script src="app/views/books/booksController.js"></script>
+
+
+    <script src="app/views/Categories/categoriesController.js"></script>
+    <script src="app/views/books/booksOfCategoryController.js"></script>
+    <script src="app/views/books/bookDetailController.js"></script>
+    <script src="app/views/books/booksOfAuthorController.js"></script>
+    <script src="app/views/Categories/categoriesController.js"></script>
+    <script src="app/views/categories/categoryCUController.js"></script>
+    <script src="app/views/books/bookCUController.js"></script>
+    <script src="app/views/Chapters/chaptersController.js"></script>
+    <script src="app/views/Chapters/chapterAddController.js"></script>
+    <script src="app/views/Chapters/chapterUpdateController.js"></script>
+    <script src="app/views/Chapters/chapterController.js"></script>
+    <script src="app/views/authors/authorsController.js"></script>
+    <script src="app/views/authors/authorAddController.js"></script>
+    <script src="app/views/authors/authorUpdateController.js"></script>
+    <script src="http://localhost:49064/app/views/books/searchResultsController.js"></script>
+</body>
+</html>

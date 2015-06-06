@@ -1,0 +1,52 @@
+﻿<div ng-controller="chapterUpdateController" ng-init="init()">
+    <div>
+        <button ng-click="init()" class="close">Quay lại</button>
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        <form name="createChapterForm" novalidate>
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.name.$invalid && !createChapterForm.name.$pristine}">
+                <label>Số thư tự</label>
+                <input type="number" name="ordinal" class="form-control" ng-model="chapter.ordinal" required />
+                <p ng-show="createChapterForm.ordinal.$invalid && !createChapterForm.ordinal.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.name.$invalid && !createChapterForm.name.$pristine}">
+                <label>Tên chương</label>
+                <input type="text" name="name" class="form-control" ng-model="chapter.name" required />
+                <p ng-show="createChapterForm.name.$invalid && !createChapterForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.descriptionAddChapter.$invalid && !createChapterForm.descriptionAddChapter.$pristine}">
+                <label>Mô tả</label>
+                <text-angular name="descriptionAddChapter" ng-model="chapter.description" required></text-angular>
+                <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                <p ng-show="createChapterForm.descriptionAddChapter.$invalid && !createChapterForm.descriptionAddChapter.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.contentAddChapter.$invalid && !createChapterForm.contentAddChapter.$pristine}">
+                <label>Nội dung</label>
+                <text-angular name="contentAddChapter" ng-model="chapter.content" required></text-angular>
+                <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                <p ng-show="createChapterForm.contentAddChapter.$invalid && !createChapterForm.contentAddChapter.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.tempContentAddChapter.$invalid && !createChapterForm.tempContentAddChapter.$pristine}">
+                <label>Nội dung phụ</label>
+                <text-angular name="tempContentAddChapter" ng-model="chapter.tempContent" required></text-angular>
+                <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                <p ng-show="createChapterForm.tempContentAddChapter.$invalid && !createChapterForm.tempContentAddChapter.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': createChapterForm.imageUrl.$invalid && !createChapterForm.imageUrl.$pristine}">
+                <label>Hình ảnh</label>
+                <input type="url" name="imageUrl" class="form-control" ng-model="chapter.imageUrl" required />
+                <p ng-show="createChapterForm.imageUrl.$invalid && !createChapterForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+            <div class="form-group">
+                <label>Không hiển thị</label>
+                <input type="checkbox" ng-model="chapter.isLocked">
+                <!--<input type="text" name="status" class="form-control" ng-model="author.isLocked" />-->
+                <!--<p ng-show="updateAuthorForm.isLocked.$invalid && !updateAuthorForm.isLocked.$pristine" class="help-block text-warning">Trạng thái truyện không được bỏ trống</p>-->
+            </div>
+            <button type="submit" ng-click="showUpdate()" class="btn btn-primary" ng-disabled="createChapterForm.$invalid">Cập nhật</button>
+        </form>
+    </div>
+</div>

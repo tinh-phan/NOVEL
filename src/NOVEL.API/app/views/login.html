@@ -1,0 +1,13 @@
+﻿
+<form class="form-login" role="form" >
+    <input type="text" class="form-control" placeholder="Tên đăng nhập" data-ng-model="loginData.userName" required autofocus>
+    <p></p>
+    <input type="password" class="form-control" placeholder="Mật khẩu" data-ng-model="loginData.password" required>
+    <p></p>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="login()">Đăng Nhập</button>
+    <div data-ng-hide="message == ''" class="alert alert-danger">
+        {{message}}
+    </div>
+</form>
+
+    

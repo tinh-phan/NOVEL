@@ -1,0 +1,4 @@
+F:\Xproject\NOVEL\src\NOVEL.Common\bin\Debug\NOVEL.Common.dll
+F:\Xproject\NOVEL\src\NOVEL.Common\bin\Debug\NOVEL.Common.pdb
+F:\Xproject\NOVEL\src\NOVEL.Common\obj\Debug\NOVEL.Common.dll
+F:\Xproject\NOVEL\src\NOVEL.Common\obj\Debug\NOVEL.Common.pdb

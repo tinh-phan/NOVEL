@@ -1,0 +1,21 @@
+﻿<div ng-controller="homeController" ng-init="init()">
+    <div class="row">
+        <div ng-repeat="book in books" class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img ng-src="{{book.imageUrl}}" />
+
+                </div>
+                <div class="panel-footer">
+                    <p><a href="#books/{{book.name}}">{{book.name}} </a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9 ">
+            <btn class="btn btn-default" ng-click="expandPageSize()" ng-disabled="disabled">Xem thêm</btn>
+        </div>
+    </div>
+    
+</div>

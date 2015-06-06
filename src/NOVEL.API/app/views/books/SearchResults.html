@@ -1,0 +1,24 @@
+﻿<div ng-controller="searchResultsController" ng-init="init()">
+        <div class="row">
+            <h3>Kết quả tìm kiếm: <span class="badge">{{totalItems}}</span></h3>
+            <div ng-repeat="book in books" class="col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <img ng-src="{{book.imageUrl}}" />
+
+                    </div>
+                    <div class="panel-footer">
+                        <p><a href="#books/{{book.name}}">{{book.name}} </a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-9 ">
+                <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="pagination.currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+
+                </pagination>
+            </div>
+        </div>
+     
+</div>

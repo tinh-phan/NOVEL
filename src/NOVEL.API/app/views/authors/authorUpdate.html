@@ -1,0 +1,26 @@
+﻿<div ng-controller="authorUpdateController" ng-init="init()">
+    <div>
+        <button ng-click="init()" class="close">Quay lại</button>
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        <form name="createAuthorForm" novalidate>
+            
+            <div class="form-group" ng-class="{ 'has-error': createAuthorForm.name.$invalid && !createAuthorForm.name.$pristine}">
+                <label>Tên chương</label>
+                <input type="text" name="name" class="form-control" ng-model="author.name" required />
+                <p ng-show="createAuthorForm.name.$invalid && !createAuthorForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+
+            <div class="form-group">
+                <label>Mô tả</label>
+                <text-angular ng-model="author.description" required></text-angular>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error': createAuthorForm.imageUrl.$invalid && !createAuthorForm.imageUrl.$pristine}">
+                <label>Hình ảnh</label>
+                <input type="url" name="imageUrl" class="form-control" ng-model="author.imageUrl" required />
+                <p ng-show="createAuthorForm.imageUrl.$invalid && !createAuthorForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+            </div>
+            <button type="submit" ng-click="showUpdate()" class="btn btn-primary" ng-disabled="createAuthorForm.$invalid">Cập nhật</button>
+        </form>
+    </div>
+</div>

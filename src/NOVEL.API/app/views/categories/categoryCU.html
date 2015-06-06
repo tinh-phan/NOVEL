@@ -1,0 +1,49 @@
+﻿
+<div ng-controller="categoryCUController" ng-init="init()">
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-bind="title"></div>
+        <div class="panel-body">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            <!--<div class="form-group">
+                <label ng-show="DisplayMode" class="control-label">Id - {{category.id}}</label>
+                <br />
+                <label ng-show="DisplayMode" class="control-label" for="focusedInput">Tên - {{category.name}}</label>
+                <div ng-show="EditMode"><input ng-model="category.name" class="form-control" type="text" value="Nhập tên ..."></div>
+                <div class="col-lg-10 col-lg-offset-2">
+                    <span ng-show="ShowCreateButton"><button class="btn btn-primary" ng-click="showAdd(category)">Tạo mới</button></span>
+                    <span ng-show="ShowEditButton"><button class="btn btn-primary" ng-click="editCategory()">Sửa</button></span>
+                    <span ng-show="ShowUpdateButton"><button class="btn btn-primary" ng-click="showUpdate(category)">Cập nhật</button></span>
+                    <span ng-show="ShowCancelButton"><button class="btn btn-primary" ng-click="cancelChanges()">Quay lại</button></span>
+                </div>
+            </div>-->
+            <!--  -->
+            <form ng-show="AddMode" name="createCategoryForm" ng-submit="showAdd(category)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error': createCategoryForm.name.$invalid && !createCategoryForm.name.$pristine}">
+                    <label>Tên thể loại</label>
+                    <input type="text" name="name" class="form-control" ng-model="category.name" required />
+                    <p ng-show="createCategoryForm.name.$invalid && !createCategoryForm.name.$pristine" class="help-block text-warning">Tên thể loại không được bỏ trống</p>
+                </div>
+                <button type="submit" class="btn btn-primary" ng-disabled="createCategoryForm.$invalid">Tạo mới</button>
+            </form>
+
+            <div ng-show="UpdateMode">
+                <div ng-hide="EditMode">
+                    <label>Tên thể loại</label>
+                    <p>{{category.name}}</p>
+                </div>
+                <span ng-show="ShowEditButton"><button class="btn btn-primary" ng-click="editCategory()">Sửa</button></span>
+                <form ng-show="EditMode" name="updateCategoryForm" ng-submit="showUpdate(category)" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error': createCategoryForm.name.$invalid && !createCategoryForm.name.$pristine}">
+                        <label>Tên thể loại</label>
+
+                        <input type="text" name="name" class="form-control" ng-model="category.name" required />
+                        <p ng-show="createCategoryForm.name.$invalid && !createCategoryForm.name.$pristine" class="help-block text-warning">Tên truyện không được bỏ trống</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary" ng-disabled="createCategoryForm.$invalid">Cập nhật</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+﻿
+<div ng-controller="booksOfCategoryController" ng-init="init()">
+    <div class="row">
+        <div ng-repeat="book in booksOfCategory" class="col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img ng-src="{{book.imageUrl}}" />
+                </div>
+                <div class="panel-footer">
+                    <p><a href="#books/{{book.name}}">{{book.name}} </a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

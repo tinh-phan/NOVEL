@@ -1,0 +1,249 @@
+﻿
+<div ng-controller="bookCUController" ng-init="init()">
+    <script type="text/ng-template" id="authorModal.html">
+        <div ng-init="init()">
+            <div class="modal-header">
+                <button class="close" data-ng-click="cancel()">x</button>
+                <h3 class="modal-title">Tác giả</h3>
+            </div>
+            <div class="modal-body">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                <div ng-show="DisplayMode">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="author in authors">
+                                <td>{{$index + 1}}</td>
+                                <td>{{author.id}}</td>
+                                <td>{{author.name}}</td>
+                                <td><button class="btn btn-primary btn-sm" ng-click="SelectEditMode(author.id)">Sửa</button> <button class="btn btn-primary btn-sm" ng-click="RemoveAuthor(author.id)">Xóa</button> <button class="btn btn-primary btn-sm" ng-click="ok(author.id)">Chọn</button></td>
+                            </tr>
+                            
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" align="center">
+                                    <pagination boundary-links="true" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" max-size="maxSize" ng-change="pageChanged()" class="pagination" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;">
+
+                                    </pagination>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" align="center"><button class="btn btn-primary" ng-click="SelectAddMode()">Tạo mới</button></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div ng-show="AddMode">
+                    <button ng-click="init()" class="close">Quay lại</button>
+                    <form name="createAuthorForm" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error': createAuthorForm.name.$invalid && !createAuthorForm.name.$pristine}">
+                            <label>Tên tác giả</label>
+                            <input type="text" name="name" class="form-control" ng-model="author.name" required />
+                            <p ng-show="createAuthorForm.name.$invalid && !createAuthorForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': createAuthorForm.descriptionAddAuthor.$invalid && !createAuthorForm.descriptionAddAuthor.$pristine}">
+                            <label>Mô tả</label>
+                            <text-angular ng-model="author.description" name="descriptionAddAuthor" required></text-angular>
+                            <p ng-show="createAuthorForm.descriptionAddAuthor.$invalid && !createAuthorForm.descriptionAddAuthor.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': createAuthorForm.imageUrl.$invalid && !createAuthorForm.imageUrl.$pristine}">
+                            <label>Hình ảnh</label>
+                            <input type="url" name="imageUrl" class="form-control" ng-model="author.imageUrl" required />
+                            <p ng-show="createAuthorForm.imageUrl.$invalid && !createAuthorForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>
+
+                        <!--<div class="form-group" ng-class="{ 'has-error': createAuthorForm.userName.$invalid && !createAuthorForm.userName.$pristine}">
+                            <label>Tên người dùng</label>
+                            <input type="text" name="userName" class="form-control" ng-model="author.userName" />
+                            <p ng-show="createAuthorForm.userName.$invalid && !createAuthorForm.userName.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>-->
+                        <button type="submit" ng-click="AddAuthor()" class="btn btn-primary" ng-disabled="createAuthorForm.$invalid">Tạo mới</button>
+                    </form>
+                </div>
+                <!--  -->
+                <div ng-show="UpdateMode">
+                    <button ng-click="init()" class="close">Quay lại</button>
+                    <form name="updateAuthorForm" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error': updateAuthorForm.name.$invalid && !updateAuthorForm.name.$pristine}">
+                            <label>Tên tác giả</label>
+                            <input type="text" name="name" class="form-control" ng-model="author.name" required />
+                            <p ng-show="updateAuthorForm.name.$invalid && !updateAuthorForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': updateAuthorForm.descriptionUpdateAuthor.$invalid && !updateAuthorForm.descriptionUpdateAuthor.$pristine}">
+                            <label>Mô tả</label>
+                            <text-angular name="descriptionUpdateAuthor" ng-model="author.description" required></text-angular>
+                            <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                            <p ng-show="updateAuthorForm.descriptionUpdateAuthor.$invalid && !updateAuthorForm.descriptionUpdateAuthor.$pristine" class="help-block text-warning">Mô tả truyện không được bỏ trống</p>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': updateAuthorForm.imageUrl.$invalid && !updateAuthorForm.imageUrl.$pristine}">
+                            <label>Hình ảnh</label>
+                            <input type="url" name="imageUrl" class="form-control" ng-model="author.imageUrl" />
+                            <p ng-show="updateAuthorForm.imageUrl.$invalid && !updateAuthorForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Không hiển thị</label>
+                            <input type="checkbox" ng-model="author.isLocked">
+                            <!--<input type="text" name="status" class="form-control" ng-model="author.isLocked" />-->
+                            <!--<p ng-show="updateAuthorForm.isLocked.$invalid && !updateAuthorForm.isLocked.$pristine" class="help-block text-warning">Trạng thái truyện không được bỏ trống</p>-->
+                        </div>
+                        <button type="submit" ng-click="UpdateAuthor()" class="btn btn-primary" ng-disabled="updateAuthorForm.$invalid">Cập nhật</button>
+                    </form>
+                </div>
+                <!--  -->
+
+            </div>
+        </div>
+
+    </script>
+    <!--  -->
+
+
+
+
+
+    <script type="text/ng-template" id="categoryModal.html">
+        <div ng-init="init()">
+            <div class="modal-header">
+                <button class="close" data-ng-click="cancel()">x</button>
+                <h3 class="modal-title">Thể loại</h3>
+            </div>
+            <div class="modal-body">
+                <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+                <div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>
+                                <th>Tên</th>
+                                <th>Chọn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="category in categories">
+                                <td>{{$index + 1}}</td>
+                                <td>{{category.id}}</td>
+                                <td>{{category.name}}</td>
+                                <td><button ng-show="btnShow(category.id)" class="btn btn-primary btn-sm" ng-click="select(category.id)">Chọn</button><button ng-show="!btnShow(category.id)" class="btn btn-primary btn-sm" ng-click="deSelect(category.id)">Bỏ chọn</button></td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="4" align="center"><button class="btn btn-primary" ng-click="ok()">Chấp nhận</button></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+               <!--  -->
+
+            </div>
+        </div>
+
+    </script>
+
+    <!--  -->
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-bind="title"></div>
+        <div class="panel-body">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+            <form ng-show="AddMode" name="createBookForm" novalidate>
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.name.$invalid && !createBookForm.name.$pristine}">
+                    <label>Tên sách</label>
+                    <input type="text" name="name" class="form-control" ng-model="book.name" required />
+                    <p ng-show="createBookForm.name.$invalid && !createBookForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.descriptionAddBookCU.$invalid && !createBookForm.descriptionAddBookCU.$pristine}">
+                    <label>Mô tả</label>
+                    <text-angular ng-model="book.description"></text-angular>
+                    <!--<text-angular name="descriptionAddBookCU" ng-model="book.description"></text-angular>-->
+                    <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                    <!--<p ng-show="createBookForm.descriptionAddBookCU.$invalid && !createBookForm.descriptionAddBookCU.$pristine" class="help-block text-warning">Không hợp lệ</p>-->
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.imageUrl.$invalid && !createBookForm.imageUrl.$pristine}">
+                    <label>Hình ảnh</label>
+                    <input type="url" name="imageUrl" class="form-control" ng-model="book.imageUrl" required />
+                    <p ng-show="createBookForm.imageUrl.$invalid && !createBookForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                </div>
+
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.status.$invalid && !createBookForm.status.$pristine}">
+                    <label>Trạng thái</label>
+                    <input type="text" name="status" class="form-control" ng-model="book.status" required />
+                    <p ng-show="createBookForm.status.$invalid && !createBookForm.status.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.author.$invalid && !createBookForm.author.$pristine}">
+                    <label>Tác giả {{book.authorName}}</label>
+                    <input type="text" name="author" class="form-control" ng-model="book.authorId" ng-bind="book.authorId" required />
+                    <button class="btn btn-primary" ng-click="openAuthorModal()">Chọn</button>
+                    <p ng-show="createBookForm.author.$invalid && !createBookForm.author.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                </div>
+                <div class="form-group" ng-class="{ 'has-error': createBookForm.author.$invalid && !createBookForm.author.$pristine}">
+                    <label>Thể loại</label>
+                    <button class="btn btn-primary" ng-click="openCategoryModal()">Chọn</button>
+                </div>
+                <button type="submit" ng-click="showAdd(book)" class="btn btn-primary" ng-disabled="createBookForm.$invalid">Tạo mới</button>
+            </form>
+
+            <div ng-show="UpdateMode">
+                <div ng-hide="EditMode">
+                    <label>Tên sách</label>
+                    <p>{{book.name}}</p>
+                </div>
+                <span ng-show="ShowEditButton"><button class="btn btn-primary" ng-click="editBook()">Sửa</button></span>
+                <form ng-show="EditMode" name="updateBookForm"  novalidate>
+                    <div class="form-group" ng-class="{ 'has-error': createBookForm.name.$invalid && !createBookForm.name.$pristine}">
+                        <label>Tên sách</label>
+                        <input type="text" name="name" class="form-control" ng-model="book.name" required />
+                        <p ng-show="createBookForm.name.$invalid && !createBookForm.name.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mô tả</label>
+                        <text-angular ng-model="book.description" required></text-angular>
+                        <!--<input type="text" name="description" class="form-control" ng-model="book.description" required />-->
+                        <!--<p ng-show="book.description == ''" class="help-block text-warning">Không hợp lệ</p>-->
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': createBookForm.imageUrl.$invalid && !createBookForm.imageUrl.$pristine}">
+                        <label>Hình ảnh</label>
+                        <input type="url" name="imageUrl" class="form-control" ng-model="book.imageUrl" required />
+                        <p ng-show="createBookForm.imageUrl.$invalid && !createBookForm.imageUrl.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                    </div>
+
+                    <div class="form-group" ng-class="{ 'has-error': createBookForm.status.$invalid && !createBookForm.status.$pristine}">
+                        <label>Trạng thái</label>
+                        <input type="text" name="status" class="form-control" ng-model="book.status" required />
+                        <p ng-show="createBookForm.status.$invalid && !createBookForm.status.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': createBookForm.author.$invalid && !createBookForm.author.$pristine}">
+                        <label>Tác giả</label>
+                        <input type="text" name="author" class="form-control" ng-model="book.authorId" placeholder="book.authorId" required />
+                        <p ng-show="createBookForm.author.$invalid && !createBookForm.author.$pristine" class="help-block text-warning">Không hợp lệ</p>
+                        <button class="btn btn-primary" ng-click="openAuthorModal()">Chọn</button>
+                    </div>
+                    <!--<div class="form-group" ng-class="{ 'has-error': createBookForm.author.$invalid && !createBookForm.author.$pristine}">
+                        <label>Thể loại</label>
+                        <button class="btn btn-primary" ng-click="openCategoryModal()">Chọn</button>
+                    </div>-->
+                    <button type="submit" ng-click="showUpdate(book)" class="btn btn-primary" ng-disabled="createCategoryForm.$invalid">Cập nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

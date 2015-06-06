@@ -1,0 +1,18 @@
+﻿<!--<div ng-controller="booksOfAuthorController" ng-init="init()">
+    <div ng-repeat="book in booksOfAuthor">
+        <p><a href="#books/{{book.name}}">{{book.name}}</a></p>
+    </div>
+</div>-->
+
+<div ng-controller="booksOfAuthorController" ng-init="init()">
+    <div ng-repeat="book in booksOfAuthor" class="col-lg-3">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <img src="http://truyenyy.com/media/cache/07/83/0783c14b365a661af3be47f4ec34134d.jpg" />
+            </div>
+            <div class="panel-footer">
+                <p><a href="#books/{{book.name}}">{{book.name}} </a> <a href="#" class="btn btn-default btn-xs"> ^ </a></p>
+            </div>
+        </div>
+    </div>
+</div>

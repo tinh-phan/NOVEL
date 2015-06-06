@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Ninject.Web.WebApi.OwinHost</id>
+    <version>3.2.4.0</version>
+    <title>Ninject OWIN host for WebApi 2</title>
+    <authors>Remo Gloor</authors>
+    <owners>Remo Gloor</owners>
+    <licenseUrl>https://github.com/ninject/ninject.web.webapi/raw/master/LICENSE.txt</licenseUrl>
+    <projectUrl>http://www.ninject.org/</projectUrl>
+    <iconUrl>https://github.com/ninject/ninject/raw/master/logos/Ninject-Logo32.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Extension for Ninject providing integration with ASP.NET MVC WebAPI 2 OWIN host</description>
+    <summary>Extension for Ninject providing integration with ASP.NET MVC WebAPI 2 OWIN host</summary>
+    <releaseNotes>https://github.com/ninject/Ninject.Web.WebApi/blob/master/ReleaseNotes.md</releaseNotes>
+    <language>en-US</language>
+    <tags>Ninject ioc di web mvc api owin host</tags>
+    <dependencies>
+      <dependency id="Ninject.Web.WebApi" version="[3.2.0.0, 3.3.0.0)" />
+      <dependency id="Ninject.Web.Common" version="[3.0, 4.0)" />
+      <dependency id="Ninject.Web.Common.OwinHost" version="[3.0, 4.0)" />
+      <dependency id="Ninject.Extensions.ContextPreservation" version="[3.2, 4.0)" />
+      <dependency id="Ninject.Extensions.NamedScope" version="[3.2, 4.0)" />
+      <dependency id="Microsoft.AspNet.WebApi.Owin" version="[5.0, 6.0)" />
+    </dependencies>
+  </metadata>
+</package>

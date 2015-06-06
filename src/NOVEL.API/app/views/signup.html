@@ -1,0 +1,19 @@
+﻿<form class="form-login" role="form" data-ng-init="initializeController()">
+    <h2 class="form-login-heading">Đăng Ký</h2>
+    <input type="email" class="form-control" placeholder="Email" data-ng-model="Email" required>
+    <p></p>
+    <input type="text" class="form-control" placeholder="Tên đăng nhập" data-ng-model="UserName" required autofocus>
+    <p></p>
+    <input type="text" class="form-control" placeholder="Tên" data-ng-model="FirstName" required>
+    <p></p>
+    <input type="text" class="form-control" placeholder="Họ" data-ng-model="LastName" required>
+    <p></p>
+    <input type="password" class="form-control" placeholder="Mặt khẩu" data-ng-model="Password" required>
+    <p></p>
+    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu" data-ng-model="ConfirmPassword" required>
+    <p></p>
+    <button class="btn btn-lg btn-info btn-block" type="submit" data-ng-click="signUp()">Đăng Ký</button>
+    <div data-ng-hide="message == ''" data-ng-class="(savedSuccessfully) ? 'alert alert-success' : 'alert alert-danger'">
+        {{message}}
+    </div>
+</form>

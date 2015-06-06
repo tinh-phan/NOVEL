@@ -1,0 +1,13 @@
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\NOVEL.Model.dll.config
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\NOVEL.Model.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\NOVEL.Model.pdb
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\EntityFramework.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\EntityFramework.SqlServer.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\EntityFramework.xml
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\EntityFramework.SqlServer.xml
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+F:\Xproject\NOVEL\src\NOVEL.Model\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+F:\Xproject\NOVEL\src\NOVEL.Model\obj\Debug\NOVEL.Model.dll
+F:\Xproject\NOVEL\src\NOVEL.Model\obj\Debug\NOVEL.Model.pdb

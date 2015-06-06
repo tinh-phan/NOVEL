@@ -1,0 +1,6 @@
+F:\Xproject\NOVEL\src\NOVEL.Web\bin\NOVEL.Web.dll.config
+F:\Xproject\NOVEL\src\NOVEL.Web\bin\NOVEL.Web.dll
+F:\Xproject\NOVEL\src\NOVEL.Web\bin\NOVEL.Web.pdb
+F:\Xproject\NOVEL\src\NOVEL.Web\obj\Debug\NOVEL.Web.dll
+F:\Xproject\NOVEL\src\NOVEL.Web\obj\Debug\NOVEL.Web.pdb
+F:\Xproject\NOVEL\src\NOVEL.Web\obj\Debug\NOVEL.Web.csprojResolveAssemblyReference.cache
